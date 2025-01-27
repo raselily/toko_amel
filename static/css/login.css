@@ -39,14 +39,13 @@ w
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0px 50px;
+    padding: 0px 40px;
 }
 .form h1{
-    padding-bottom: 50px;
-}
-h1 {
+    padding-bottom: 40px;
     color: black;
 }
+
 .infield {
     position: relative;
     margin-top: 15px;
@@ -137,4 +136,94 @@ p{
     line-height: 20px;
     letter-spacing: 0.5px;
     margin: 25px 0px 35px;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        position: relative;
+        width: 550px;
+        height: 500px;
+        background-color: #fff;
+        box-shadow: 25px 30px 55px #5557;
+        border-radius: 13px;
+        overflow: hidden;
+        padding-top: 70px;
+    }
+
+    .btn {
+        border-radius: 20px;
+        border: 1px solid #ffffff;
+        background: #141E30;
+        color: white;
+        font-size: 8px;
+        font-weight: bold;
+        padding: 10px 30px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    button {
+        border-radius: 20px;
+        border: 1px solid #141E30;
+        background: #141E30;
+        color: white;
+        font-size: 8px;
+        font-weight: bold;
+        padding: 10px 30px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .overlay {
+        position: relative;
+        background: rgb(237, 205, 41);
+        color: #fff;
+        left: -160%;
+        height: 100%;
+        width: 290%;
+        transition: transform 0.6s ease-in-out;
+    }
+    .overlay-panel h1 {
+        color: #fff;
+        font-size: medium;
+    }
+    
+    p {
+        font-size: 10px;
+        line-height: 20px;
+        letter-spacing: 0.5px;
+        margin: 25px 0px 35px;
+        width: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        position: relative;
+        width: 400px;
+        height: 500px;
+        background-color: #fff;
+        box-shadow: 25px 30px 55px #5557;
+        border-radius: 13px;
+        overflow: hidden;
+        padding-top: 70px;
+    }
+    .overlay {
+        position: relative;
+        background: rgb(237, 205, 41);
+        color: #fff;
+        left: -135%;
+        height: 100%;
+        width: 290%;
+        transition: transform 0.6s ease-in-out;
+    }
+
+    input {
+        width: 110%;
+        padding: 10px 10px;
+        margin-left: 0;
+    }
+    .form h1{
+        padding-bottom: 10px;
+    }
 }
