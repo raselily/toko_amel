@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produk</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../static/css/keranjang.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="SB-Mid-client-RKK3i82DP7bkvD4L"></script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand me-auto" href="/">Toko Amel</a>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Toko Amel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                        <li class="nav-produk">
+                            <a class="nav-link mx-lg-2" aria-current="page" href="/">Dashboard</a>
+                        </li>
+                        <li class="nav-produk">
+                            <a class="nav-link mx-lg-2" href="/produk">Produk</a>
+                        </li>
+                        <li class="nav-produk">
+                            <a class="nav-link mx-lg-2" href="/about">Tentang Kami</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <a id="loginButton" href="/login" class="login-button">Login</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <div class="container py-5 mt-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-responsive-lg table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Produk</th>
+                            <th>Harga</th>
+                            <th>Jumlah</th>
+                            <th>Total</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cartTableBody">
+                        {% for item in keranjang %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ item['name'] }}</td>
+                            <td>Rp. {{ item['price'] }}</td>
+                            <td>{{ item['quantity'] }}</td>
+                            <td>Rp. {{ item['price'] * item['quantity'] }}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm btn-hapus-keranjang"
+                                    data-product-id="{{ item['product_id'] }}">
+                                    Hapus
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-12 mb-4">
+                <div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">TOTAL YANG DIBAYARKAN :</h4>
+                            <h4 class="card-text" id="totalPrice">Rp {{total_price}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-warning btn-lg" id="pay-button">Bayar</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="myfooter">
+        <div class="footer-info">
+            <div class="first-info">
+                <h2>Toko Amel</h2>
+                <p>Jl. Andara pangkalan jati baru. Cinere. Depok</p>
+                <p>Telepon : +6281806188159</p>
+                <p>adeliaadelia60267@gmail.com</p>
+            </div>
+
+            <div class="second-info">
+                <h4>Menu</h4>
+                <p>Home</p>
+                <p>Produk</p>
+                <p>Tentang Kami</p>
+            </div>
+
+            <div class="third-info">
+                <h4>Kategori</h4>
+                <p>Makanan</p>
+                <p>Minuman</p>
+                <p>Rokok</p>
+                <p>Sabun</p>
+                <p>Sampo</p>
+                <p>Deterjen</p>
+            </div>
+        </div>
+    </div>
+    <!-- Fotter End -->
+
+    <script>
+        function updateLoginStatus() {
+            $.ajax({
+                type: 'GET',
+                url: '/check_login_status',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.logged_in) {
+                        // Pengguna sudah login
+                        $('#loginButton').replaceWith(`
+                            <div class="profile-dropdown">
+                                <div class="profile-dropdown-btn">
+                                    <span>
+                                        ${data.email}
+                                        <i class="bi bi-chevron-down"></i>
+                                    </span>
+                                    <ul class="profile-dropdown-list">
+                                        <li class="profile-dropdown-list-item">
+                                            <a href="/profil">
+                                                <i class="bi bi-person"></i>
+                                                Edit Profile
+                                            </a>
+                                        </li>
+                                        <li class="profile-dropdown-list-item">
+                                            <a href="/logout">
+                                                <i class="bi bi-box-arrow-right"></i>
+                                                Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `);
+
+                        // Toggle dropdown saat tombol username diklik
+                        $('.profile-dropdown-btn > span').click(function (event) {
+                            event.preventDefault();
+                            $(this).next('ul').toggle();
+                        });
+
+                        // Menyembunyikan dropdown ketika klik di luar dropdown
+                        $(document).click(function (event) {
+                            if (!$(event.target).closest('.profile-dropdown').length) {
+                                $('.profile-dropdown ul').hide();
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        $(document).ready(function () {
+            updateLoginStatus(); // Panggil fungsi saat dokumen siap
+        });
+
+        // Pass the transaction_token from Flask to JavaScript
+        var transactionToken = "{{ transaction_token }}";
+
+        // Function to handle button click
+        function handleClick() {
+
+            if (transactionToken) {
+                // Trigger snap popup (Replace with actual implementation)
+                // window.snap.pay(transactionToken);
+                window.snap.pay(transactionToken);
+            } else {
+                console.error('Transaction token is missing');
+            }
+        }
+
+        // Add event listener to the button
+        document.getElementById('pay-button').addEventListener('click', handleClick);
+
+    </script>
+
+</body>
+
+</html>

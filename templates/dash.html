@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../static/css/dash.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <input type="checkbox" id="nav-toggle">
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2>Toko Amel</h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="/dash"><img src="../static/img/img-admin/home.png"></i><span>Dashboard</span></a>
+                </li>
+                <li>
+                    <a href="/adminProduk"><img src="../static/img/img-admin/commerce.png"></i><span>Produk</span></a>
+                </li>
+                <li>
+                    <a href="/user"><img src="../static/img/img-admin/user.png"></i><span>User</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-content">
+        <header>
+            <h3>
+                <label for="nav-toggle">
+                    <img src="../static/img/img-admin/menu.png">
+                </label>
+                Dashboard
+            </h3>
+            <div class="user-wrapper">
+                <div>
+                    <a onclick="confirmLogout(event)" href="/">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="cards">
+                <div class="card-single">
+                    <div>
+                        <h2>{{ users|length }}</h2>
+                        <span>Pengguna Terdaftar</span>
+                    </div>
+                    <div>
+                        <img src="../static/img/img-admin/people.png" class="icon">
+                    </div>
+                </div>
+                <div class="card-single">
+                    <div>
+                        <h2>{{ produk_counts|length }}</h2>
+                        <span>Produk</span>
+                    </div>
+                    <div>
+                        <img src="../static/img/img-admin/commerce.png">
+                    </div>
+                </div>
+                <div class="card-single">
+                    <div>
+                        <h2>{{ makanan_counts|length }}</h2>
+                        <span>Makanan</span>
+                    </div>
+                    <div>
+                        <img src="../static/img/img-admin/snack.png">
+                    </div>
+                </div>
+                <div class="card-single">
+                    <div>
+                        <h2>{{ minuman_counts|length }}</h2>
+                        <span>Minuman</span>
+                    </div>
+                    <div>
+                        <img src="../static/img/img-admin/soda.png">
+                    </div>
+                </div>
+            </div>
+
+            <!--Daftar pengguna-->
+            <div class="recent-grid">
+                <div class="project">
+                    <div class="kartu">
+                        <div class="card-header">
+                            <h3>Daftar Pengguna</h3>
+                            <a href="/user"><button>See all <i class="bi bi-arrow-right"></i></button></a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table width="100%">
+                                    <thead>
+                                        <tr>
+                                            <td>No</td>
+                                            <td>Nama</td>
+                                            <td>Email</td>
+                                            <td>No Hp</td>
+                                            <td>Tanggal Daftar</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i, user in enumerate(users) %}
+                                        <tr>
+                                            <td>{{ i + 1 }}</td>
+                                            <td>{{ user.nama }}</td>
+                                            <td>{{ user.email }}</td>
+                                            <td>{{ user.noHp }}</td>
+                                            <td>{{ user.registration_date }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Daftar pengguna End-->
+        </main>
+    </div>
+
+    <script>
+        function confirmLogout(event) {
+            // Mencegah default behavior dari tautan <a> (navigasi)
+            event.preventDefault();
+
+            // Menampilkan dialog konfirmasi
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                // Jika pengguna menekan tombol OK (ya), lakukan logout
+                log_out(); // Implementasi log_out() harus disesuaikan dengan kebutuhan Anda
+            } else {
+                // Jika pengguna membatalkan (tombol Batal), tidak lakukan logout
+                return false;
+            }
+        }
+
+        function log_out() {
+            window.location.href = '/'
+        }
+    </script>
+
+</body>
+</html>

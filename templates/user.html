@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>Product</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../static/css/allproduk.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <input type="checkbox" id="nav-toggle">
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2>Toko Amel</h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="/dash"><img src="../static/img/img-admin/home.png"></i><span>Dashboard</span></a>
+                </li>
+                <li>
+                    <a href="/adminProduk"><img src="../static/img/img-admin/commerce.png"></i><span>Produk</span></a>
+                </li>
+                <li>
+                    <a href="/user"><img src="../static/img/img-admin/user.png"></i><span>User</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-content">
+        <header>
+            <h3>
+                <label for="nav-toggle">
+                    <img src="../static/img/img-admin/menu.png">
+                </label>
+                User
+            </h3>
+
+            <div class="user-wrapper">
+                <div>
+                    <a onclick="confirmLogout(event)" href="/">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </header>
+        <main>
+            <!--Daftar pengguna-->
+            <div class="recent-grid">
+                <div class="project">
+                    <div class="kartu">
+                        <div class="card-header">
+                            <h3>Daftar Pengguna</h3>
+                            <div class="search-box">
+                                <div class="search-icon">
+                                    <i class="bi bi-search custom-icon"></i></i>
+                                </div>
+                                <div class="search-input">
+                                    <input id="searchProduct" type="text" class="input" placeholder="Search...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive" id="userTable">
+                                <table width="100%">
+                                    <thead>
+                                        <tr>
+                                            <td>No</td>
+                                            <td>Nama</td>
+                                            <td>Email</td>
+                                            <td>No Hp</td>
+                                            <td>Tanggal Daftar</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i, user in enumerate(users) %}
+                                        <tr>
+                                            <td>{{ i + 1 }}</td>
+                                            <td>{{ user.nama }}</td>
+                                            <td>{{ user.email }}</td>
+                                            <td>{{ user.noHp }}</td>
+                                            <td>{{ user.registration_date }}</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-danger"
+                                                    onclick="deleteUser('{{ user.email }}')">Delete</button>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Daftar pengguna End-->
+        </main>
+    </div>
+
+    <script>
+        function deleteUser(email) {
+            if (confirm("Yakin ingin menghapus pengguna ini?")) {
+                fetch('/hapusUser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+
+        $(document).ready(function () {
+            $('#searchProduct').on('keyup', function () {
+                let value = $(this).val().toLowerCase();
+                $('#userTable tbody tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+
+        function confirmLogout(event) {
+            // Mencegah default behavior dari tautan <a> (navigasi)
+            event.preventDefault();
+
+            // Menampilkan dialog konfirmasi
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                // Jika pengguna menekan tombol OK (ya), lakukan logout
+                log_out(); // Implementasi log_out() harus disesuaikan dengan kebutuhan Anda
+            } else {
+                // Jika pengguna membatalkan (tombol Batal), tidak lakukan logout
+                return false;
+            }
+        }
+
+        function log_out() {
+            window.location.href = '/'
+        }
+    </script>
+</body>
+
+</html>

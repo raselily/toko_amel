@@ -1,0 +1,187 @@
+*{
+    font-family: "PT Sans", sans-serif;
+}
+.navbar{
+    background-color: white;
+    height: 80px;
+    margin-bottom: 20px;
+}
+.navbar-brand{
+    font-weight: 500;
+    color: rgb(255, 218, 7);
+    font-size: 30px;
+    transition: 0.3s color;
+    padding-left: 20px;
+}
+.custom-icon{
+    color: black;
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.custom-icon:hover{
+    color: rgb(255, 218, 7);
+}
+.login-button{
+    background-color: rgb(255, 218, 7);
+    color: black;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s background-color;
+    margin-right: 10px;
+}
+.login-button:hover {
+    background-color: rgb(237, 205, 41);
+}
+.navbar-toggler{
+    border: none;
+    font-size: 1.25rem;
+}
+.navbar-toggler:focus, .btn-close:focus{
+    box-shadow: none;
+    outline: none;
+}
+.user-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* Memberikan jarak antar elemen user */
+    justify-content: flex-end;
+}
+
+.user-wrapper img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-wrapper div h4,
+.user-wrapper div small {
+    margin: 0;
+}
+.nav-link{
+    color: grey;
+    font-weight: 500;
+    position: relative;
+}
+.nav-link:hover, .nav-link.active{
+    color: black;
+}
+@media (min-width: 991px){
+    .nav-link::before{
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: rgb(255, 218, 7);
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+    .nav-link:hover::before, .nav-link.active::before{
+        width: 100px;
+        visibility: visible;
+    }
+}
+main {
+    margin-top: 85px;
+    padding: 2rem 1.5rem;
+    background: #f1f5f9;
+    min-height: calc(100vh - 90px);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 2rem;
+    margin-top: 1rem;
+}
+
+.card-single {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+.card-single div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.card-single div img {
+    width: 40px;
+    margin-bottom: 0.5rem;
+}
+.recent-grid {
+    margin-top: 3.5rem;
+}
+
+.kartu {
+    background: #fff;
+    /* Warna putih */
+    border-radius: 10px;
+    /* Membuat sudut melengkung */
+    padding: 2rem;
+    /* Jarak dalam */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Menambahkan bayangan */
+    margin: 1rem 0;
+    /* Memberikan jarak antar elemen */
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.card-header button {
+    background: rgb(237, 205, 41);
+    border-radius: 10px;
+    color: black;
+    font-size: .8rem;
+    padding: .5rem 1rem;
+    border: 1px solid rgb(237, 205, 41);
+}
+
+table {
+    border-collapse: collapse;
+    /* Agar border tabel tidak terpisah */
+}
+
+thead tr {
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+thead td {
+    font-weight: 700;
+}
+
+td {
+    padding: .5rem 1rem;
+    font-size: .9rem;
+    color: #222;
+}
+
+tr td:last-child {
+    display: flex;
+    align-items: center;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}

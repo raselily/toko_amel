@@ -1,0 +1,121 @@
+*{
+    font-family: "PT Sans", sans-serif;
+}
+.navbar{
+    background-color: white;
+    height: 80px;
+    margin-bottom: 100px;
+}
+.navbar-brand{
+    font-weight: 500;
+    color: rgb(255, 218, 7);
+    font-size: 30px;
+    transition: 0.3s color;
+    padding-left: 20px;
+}
+.custom-icon{
+    color: black;
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.custom-icon:hover{
+    color: rgb(255, 218, 7);
+}
+.login-button{
+    background-color: rgb(255, 218, 7);
+    color: black;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s background-color;
+    margin-right: 10px;
+}
+.login-button:hover {
+    background-color: rgb(237, 205, 41);
+}
+.navbar-toggler{
+    border: none;
+    font-size: 1.25rem;
+}
+.navbar-toggler:focus, .btn-close:focus{
+    box-shadow: none;
+    outline: none;
+}
+.nav-link{
+    color: grey;
+    font-weight: 500;
+    position: relative;
+}
+.nav-link:hover, .nav-link.active{
+    color: black;
+}
+@media (min-width: 991px){
+    .nav-link::before{
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: rgb(255, 218, 7);
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+    .nav-link:hover::before, .nav-link.active::before{
+        width: 100px;
+        visibility: visible;
+    }
+}
+.myfooter{
+    background-color: black;
+    margin-top: 30px;
+    padding: 20px;
+}
+.footer-info{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, auto));
+    gap: 3rem;
+}
+.footer-info h2{
+    color: rgb(255, 218, 7);
+    font-size: 17px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+.footer-info h4{
+    color: rgb(255, 218, 7);
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+.footer-info p{
+    color: rgb(255, 218, 7);
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: capitalize;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all .42s;
+    margin-left: 20px;
+    
+}
+.footer-info p:hover{
+    color: white;
+}
+.icons{
+    color: rgb(255, 218, 7);
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.icons:hover{
+    color: rgb(255, 255, 255);
+}
